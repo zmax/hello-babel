@@ -1,0 +1,14 @@
+{
+  "name": "hello-babel",
+  "description": "Hello Babel",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-babel": "^4.0.0",
+    "gulp-concat": "^2.5.2",
+    "three": "^0.69.0"
+  },
+  "dependencies": {
+    "react": "^0.12.2"
+  }
+}
