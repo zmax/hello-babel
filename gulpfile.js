@@ -11,7 +11,7 @@ var source = require('vinyl-source-stream');
 // var sourcemaps = require("gulp-sourcemaps");
 
 // var babel = require("gulp-babel");
-// 用 babelify 取代 babel
+// 用 babelify 取代 gulp-babel
 var babelify = require('babelify');
 
 gulp.task("default", ["browserify", "watch"]);
