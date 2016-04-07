@@ -1,25 +1,41 @@
 "use strict";
 
 var gulp = require("gulp");
-var concat = require("gulp-concat");
-var babel = require("gulp-babel");
+var browserify = require('browserify');
 
-gulp.task("default", ["es6", "combile"]);
+// var concat = require("gulp-concat");
+// 用 vinyl-source-stream 取代 concat
+var source = require('vinyl-source-stream');
 
-gulp.task("es6", function() {
-    return gulp.src(["src/**/*.es6.js", "src/**/*.es6.jsx"])
-        .pipe(babel())
-        .pipe(gulp.dest("dist"));
+// 不再需要, browserify 會自己產生 source maps
+// var sourcemaps = require("gulp-sourcemaps");
+
+// var babel = require("gulp-babel");
+// 用 babelify 取代 babel
+var babelify = require('babelify');
+
+gulp.task("default", ["browserify", "watch"]);
+
+gulp.task("browserify", function() {
+    return browserify({
+        entries: './src/app.js',
+        // import 時可乎略副檔名, 預設為 js
+        extensions: ['.js', '.jsx'],
+        // source maps
+        debug: true
+    })
+    // .transform('babelify', {presets: ['es2015', 'react'/*, 'stage-0', 'stage-1'*/]})
+    // 因為 .babelrc 所以不用帶參數
+    .transform('babelify')
+    .bundle()
+    .on('error', function(err) {
+        console.error(err.message);
+        this.emit('end');
+    })
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('dist'))
 });
 
-var combile_files = [
-    // "node_modules/three/three.min.js",
-    // "node_modules/react/react.js",
-    "dist/**/*.es6.js"
-];
-
-gulp.task("combile", function() {
-    return gulp.src(combile_files)
-        .pipe(concat("app.js"))
-        .pipe(gulp.dest("dist"));
+gulp.task("watch", function() {
+    gulp.watch('src/**/*.js', ['browserify']);
 })
