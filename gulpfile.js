@@ -24,7 +24,7 @@ gulp.task("browserify", function() {
         // source maps
         debug: true
     })
-    // .transform('babelify', {presets: ['es2015', 'react'/*, 'stage-0', 'stage-1'*/]})
+    // .transform('babelify', { presets: ['es2015', 'react'/*, 'stage-0', 'stage-1'*/]})
     // 因為 .babelrc 所以不用帶參數
     .transform('babelify')
     .bundle()
