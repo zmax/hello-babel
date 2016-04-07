@@ -28,7 +28,7 @@ var TodoApp = React.createClass({
             <div className="input-group">
                 <input onChange={this.onChange} value={this.state.text} type="text" className="form-control" placeholder="do something..." />
                 <span className="input-group-btn">
-                    <button className="btn btn-default" type="button">{'Add #' + (this.state.items.length + 1)}</button>
+                    <button className="btn btn-default" type="button" onClick={this.handleSubmit}>{'Add #' + (this.state.items.length + 1)}</button>
                 </span>
             </div>
         </form>
